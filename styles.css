@@ -76,14 +76,5 @@ footer {
     cursor: pointer;
     margin-top: 10px;
 }
-/* === Logo dans le header === */
-header .logo {
-    max-width: 100px;    /* largeur max = moitié de 200px */
-    width: 100%;         /* s’adapte */
-    height: auto;        /* garde proportions */
-    display: block;
-    margin: 0 auto 12px; /* centré + petit espace dessous */
-    object-fit: contain; /* évite déformation */
-}
 
 
