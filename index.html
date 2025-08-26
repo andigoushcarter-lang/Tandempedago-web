@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tandem Pédago - Cours à Domicile</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+
+<header>
+    <h1>Tandem Pédago</h1>
+    <p>"Cours d’anglais et de maths/physique-chimie à domicile – Apprenez, progressez, réussissez."</p>
+    <a href="#contact" class="btn">Réservez votre cours</a>
+</header>
+
+<section id="presentation">
+    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/48b043f8-6c01-4370-a058-fb8c715e1832.png" alt="Professeur donnant un cours particulier à domicile" style="width:100%; max-width:600px; border-radius:10px;">
+    <p>Nous proposons des cours personnalisés d’anglais et de maths/physique-chimie pour enfants, adolescents et adultes, directement à domicile à Abidjan, avec une méthode claire et adaptée à chaque niveau.</p>
+</section>
+
+<hr style="width:80%; margin:40px auto; border:1px solid #eee;">
+
+<section id="services">
+    <h2>Nos Services</h2>
+    <div class="services">
+        <div class="service">
+            <h3>Anglais</h3>
+            <p>Débutant, intermédiaire, avancé, préparation aux examens officiels, etc.</p>
+        </div>
+        <div class="service">
+            <h3>Maths/Physique-Chimie</h3>
+            <p>Collège et lycée (séries A, C, D), révision pour les examens, etc.</p>
+        </div>
+    </div>
+</section>
+
+<section id="tarifs">
+    <h2>Tarifs</h2>
+    <div class="tarifs">
+        <div class="tarif">
+            <h3>Abonnement mensuel standard</h3>
+            <p>90 000 FCFA (cours réguliers selon le niveau)</p>
+        </div>
+        <div class="tarif">
+            <h3>Abonnement mensuel premium</h3>
+            <p>120 000 FCFA (anglais avancé, maths/physique série C ou besoins spécifiques)</p>
+        </div>
+    </div>
+    <p>Les prix incluent le déplacement à domicile.</p>
+    <a href="#contact" class="btn">Souscrire maintenant</a>
+</section>
+
+<section id="contact">
+    <h2>Contact / Réservation</h2>
+    <form class="contact-form">
+        <input type="text" placeholder="Nom" required>
+        <input type="tel" placeholder="Téléphone" required>
+
+        <select required>
+            <option value="" disabled selected>Matière</option>
+            <option value="anglais">Anglais</option>
+            <option value="maths">Maths/Physique-Chimie</option>
+        </select>
+
+        <select id="niveau" required>
+            <option value="" disabled selected>Niveau</option>
+            <optgroup label="Collège">
+                <option value="6eme">6ème</option>
+                <option value="5eme">5ème</option>
+                <option value="4eme">4ème</option>
+                <option value="3eme">3ème</option>
+            </optgroup>
+            <optgroup label="Lycée">
+                <option value="2nd-a">2nde A</option>
+                <option value="2nd-c">2nde C</option>
+                <option value="1ere-a">1ère A</option>
+                <option value="1ere-d">1ère D</option>
+                <option value="1ere-c">1ère C</option>
+                <option value="tle-a">Terminale A</option>
+                <option value="tle-d">Terminale D</option>
+                <option value="tle-c">Terminale C</option>
+            </optgroup>
+            <option value="autre">Autre</option>
+        </select>
+
+        <!-- Champ "Précisez" -->
+        <input type="text" id="precisez" placeholder="Précisez" style="display:none;">
+
+        <input type="text" placeholder="Commune, quartier, etc." required>
+        <small style="display:block; margin-top:-10px; color:#666;">(Ex: Cocody, Riviera, etc.)</small>
+
+        <button type="submit" class="whatsapp-btn">Envoyer</button>
+    </form>
+
+    <p style="font-size: 1.5em; margin: 20px 0;">
+        Contactez-nous : 
+        <a href="tel:+2250151456427" style="color: #25D366; text-decoration: none;">+225 01 51 45 64 27</a>
+    </p>
+
+    <a href="https://wa.me/2250151456427" class="whatsapp-btn" target="_blank">Discuter sur WhatsApp</a>
+
+    <div style="margin-top: 20px;">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/256e9a89-f4ba-4d90-85aa-a7b2b4eea459.png" alt="QR Code pour accéder à cette page" style="margin: 10px auto;">
+        <p>Scannez pour visiter notre site</p>
+    </div>
+</section>
+
+<footer>
+    <p>Entreprise locale basée à Abidjan – Cours à domicile</p>
+    <p>
+        <a href="#" class="fab fa-facebook" style="color: #3b5998; margin: 0 10px;"></a>
+        <a href="#" class="fab fa-instagram" style="color: #E1306C; margin: 0 10px;"></a>
+        <a href="#" class="fab fa-whatsapp" style="color: #25D366; margin: 0 10px;"></a>
+    </p>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
