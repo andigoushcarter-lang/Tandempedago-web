@@ -78,10 +78,10 @@ footer {
 }
 /* === Logo dans le header === */
 header .logo {
-    width: clamp(72px, 18vw, 120px); /* min 72px, max 120px, s’adapte selon écran */
-    height: auto;                    /* garde les proportions */
+    max-width: 200px;    /* limite la largeur du logo */
+    width: 100%;         /* occupe la largeur dispo jusqu'à 200px */
+    height: auto;        /* garde les proportions */
     display: block;
-    margin: 0 auto 10px;              /* centre + petit espace sous le logo */
-    object-fit: contain;              /* évite toute déformation */
-    max-height: 120px;                /* sécurité anti-débordement vertical */
+    margin: 0 auto 15px; /* centre + espace dessous */
+    object-fit: contain; /* évite déformations */
 }
