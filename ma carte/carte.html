@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carte de visite - Tandem Pédago</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+    .carte {
+        width: 350px;
+        height: 200px;
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .infos {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .infos h1 {
+        margin: 0;
+        font-size: 1.5em;
+        color: #25D366;
+    }
+    .infos p {
+        margin: 5px 0;
+        font-size: 0.9em;
+        color: #555;
+    }
+    .contact {
+        margin-top: 10px;
+    }
+    .contact a {
+        color: #25D366;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .qr img {
+        width: 80px;
+        height: 80px;
+        border-radius: 10px;
+    }
+</style>
+</head>
+<body>
+
+<div class="carte">
+    <div class="infos">
+        <h1>Tandem Pédago</h1>
+        <p>"Cours d’Anglais et Maths/Physique-Chimie à domicile"</p>
+        <div class="contact">
+            <p>Tél: <a href="tel:+2250151456427">+225 01 51 45 64 27</a></p>
+            <p>Abidjan, Côte d'Ivoire</p>
+        </div>
+    </div>
+    <div class="qr">
+        <img src="qr.png" alt="QR Code Tandem Pédago">
+    </div>
+</div>
+
+</body>
+</html>
