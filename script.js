@@ -21,10 +21,13 @@ document.querySelector(".contact-form").addEventListener("submit", function(e) {
 
     // Message formaté
     let message = `Bonjour, je m'appelle ${nom}.
+Voici mes coordonnées et mon besoin :
 📞 Téléphone : ${tel}
 📚 Matière : ${matiere}
 🎓 Niveau : ${niveau}
-📍 Adresse : ${adresse}`;
+📍 Adresse : ${adresse}
+
+Merci de bien vouloir considérer.`;
 
     // Ton numéro WhatsApp
     let numero = "2250151456427";
@@ -32,4 +35,3 @@ document.querySelector(".contact-form").addEventListener("submit", function(e) {
     // Ouverture de WhatsApp
     window.open("https://wa.me/" + numero + "?text=" + encodeURIComponent(message), "_blank");
 });
-
