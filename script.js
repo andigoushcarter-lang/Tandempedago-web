@@ -16,8 +16,12 @@ document.querySelector(".contact-form").addEventListener("submit", function(e) {
     let nom = document.querySelector("input[placeholder='Nom']").value;
     let tel = document.querySelector("input[placeholder='Téléphone']").value;
     let matiere = document.querySelector("select:nth-of-type(1)").value;
-    let niveau = document.querySelector("#niveau").value;
+    let niveauSelect = document.querySelector("#niveau").value;
+    let precisez = document.querySelector("#precisez").value;
     let adresse = document.querySelector("input[placeholder='Commune, quartier, etc.']").value;
+
+    // Si "autre" est choisi → prendre le texte de "précisez"
+    let niveau = (niveauSelect === "autre" && precisez.trim() !== "") ? precisez : niveauSelect;
 
     // Message formaté
     let message = `Bonjour, je m'appelle ${nom}.
@@ -35,3 +39,5 @@ Merci de bien vouloir considérer.`;
     // Ouverture de WhatsApp
     window.open("https://wa.me/" + numero + "?text=" + encodeURIComponent(message), "_blank");
 });
+
+
