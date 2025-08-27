@@ -55,59 +55,58 @@
 
 <section id="contact">
     <h2>Contact / Réservation</h2>
-    <form class="contact-form">
-        <input type="text" placeholder="Nom" required>
-        <input type="tel" placeholder="Téléphone" required>
 
-        <select required>
-            <option value="" disabled selected>Matière</option>
-            <option value="anglais">Anglais</option>
-            <option value="maths">Maths/Physique-Chimie</option>
-        </select>
+  <form id="contactForm" class="contact-form">
+    <input id="nom" name="nom" type="text" placeholder="Nom" required>
+    <input id="telephone" name="telephone" type="tel" placeholder="Téléphone" required>
 
-        <select id="niveau" required>
-            <option value="" disabled selected>Niveau</option>
-            <optgroup label="Collège">
-                <option value="6eme">6ème</option>
-                <option value="5eme">5ème</option>
-                <option value="4eme">4ème</option>
-                <option value="3eme">3ème</option>
-            </optgroup>
-            <optgroup label="Lycée">
-                <option value="2nd-a">2nde A</option>
-                <option value="2nd-c">2nde C</option>
-                <option value="1ere-a">1ère A</option>
-                <option value="1ere-d">1ère D</option>
-                <option value="1ere-c">1ère C</option>
-                <option value="tle-a">Terminale A</option>
-                <option value="tle-d">Terminale D</option>
-                <option value="tle-c">Terminale C</option>
-            </optgroup>
-            <option value="autre">Autre</option>
-        </select>
+    <select id="matiere" name="matiere" required>
+      <option value="" disabled selected>Matière</option>
+      <option value="Anglais">Anglais</option>
+      <option value="Maths/Physique-Chimie">Maths/Physique-Chimie</option>
+    </select>
 
-        <!-- Champ "Précisez" -->
-        <input type="text" id="precisez" placeholder="Précisez" style="display:none;">
+    <select id="niveau" name="niveau" required>
+      <option value="" disabled selected>Niveau</option>
+      <optgroup label="Collège">
+        <option value="6ème">6ème</option>
+        <option value="5ème">5ème</option>
+        <option value="4ème">4ème</option>
+        <option value="3ème">3ème</option>
+      </optgroup>
+      <optgroup label="Lycée">
+        <option value="2nde A">2nde A</option>
+        <option value="2nde C">2nde C</option>
+        <option value="1ère A">1ère A</option>
+        <option value="1ère D">1ère D</option>
+        <option value="1ère C">1ère C</option>
+        <option value="Terminale A">Terminale A</option>
+        <option value="Terminale D">Terminale D</option>
+        <option value="Terminale C">Terminale C</option>
+      </optgroup>
+      <option value="autre">Autre</option>
+    </select>
 
-        <input type="text" placeholder="Commune, quartier, etc." required>
-        <small style="display:block; margin-top:-10px; color:#666;">(Ex: Cocody, Riviera, etc.)</small>
+    <!-- Champ "Précisez" (caché par défaut) -->
+    <input id="precisez" name="precisez" type="text" placeholder="Précisez (si 'Autre')" style="display:none; margin-top:8px;">
 
-        <button type="submit" class="whatsapp-btn">Envoyer</button>
-    </form>
+    <input id="adresse" name="adresse" type="text" placeholder="Commune, quartier, etc." required>
+    <small style="display:block; margin-top:-10px; color:#666;">(Ex: Cocody, Riviera, etc.)</small>
 
-    <p style="font-size: 1.5em; margin: 20px 0;">
-        Contactez-nous : 
-        <a href="tel:+2250151456427" style="color: #25D366; text-decoration: none;">+225 01 51 45 64 27</a>
-    </p>
+    <button type="submit" class="whatsapp-btn">Envoyer</button>
+  </form>
 
-    <a href="https://wa.me/2250151456427" class="whatsapp-btn" target="_blank">Discuter sur WhatsApp</a>
+  <p style="font-size: 1.5em; margin: 20px 0;">
+    Contactez-nous :
+    <a href="tel:+2250151456427" style="color: #25D366; text-decoration: none;">+225 01 51 45 64 27</a>
+  </p>
 
-    <div style="margin-top: 20px;">
-        <img src="qr.png" alt="QR Code pour accéder à cette page" 
-     style="display:block; margin:10px auto; width:150px; height:150px;">
-    </div>
+  <a href="https://wa.me/2250151456427" class="whatsapp-btn" target="_blank">Discuter sur WhatsApp</a>
+
+  <div style="margin-top: 20px;">
+    <img src="qr.png" alt="QR Code pour accéder à cette page" style="display:block; margin:10px auto; width:150px; height:150px;">
+  </div>
 </section>
-
 <footer>
     <p>Entreprise locale basée à Abidjan – Cours à domicile</p>
     <p>
@@ -121,6 +120,7 @@
 
 </body>
 </html>
+
 
 
 
