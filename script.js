@@ -1,43 +1,55 @@
-// Affiche le champ "Précisez" si "Autre" est choisi
-document.getElementById("niveau").addEventListener("change", function() {
-    let champPrecisez = document.getElementById("precisez");
-    if (this.value === "autre") {
-        champPrecisez.style.display = "block";
-        champPrecisez.required = true;
-    } else {
-        champPrecisez.style.display = "none";
-        champPrecisez.required = false;
-    }
-});
-document.querySelector(".contact-form").addEventListener("submit", function(e) {
-    e.preventDefault(); // empêche l'envoi normal du formulaire
+// --- Gérer l'affichage du champ "Précisez" ---
+const niveauEl = document.getElementById("niveau");
+const precisezEl = document.getElementById("precisez");
 
-    // Récupération des valeurs
-    let nom = document.querySelector("input[placeholder='Nom']").value;
-    let tel = document.querySelector("input[placeholder='Téléphone']").value;
-    let matiere = document.querySelector("select:nth-of-type(1)").value;
-    let niveauSelect = document.querySelector("#niveau").value;
-    let precisez = document.querySelector("#precisez").value;
-    let adresse = document.querySelector("input[placeholder='Commune, quartier, etc.']").value;
+function togglePrecisez() {
+  if (niveauEl.value === "autre") {
+    precisezEl.style.display = "block";
+    precisezEl.required = true;
+  } else {
+    precisezEl.style.display = "none";
+    precisezEl.required = false;
+    precisezEl.value = ""; // vider si non utilisé
+  }
+}
 
-    // Si "autre" est choisi → prendre le texte de "précisez"
-    let niveau = (niveauSelect === "autre" && precisez.trim() !== "") ? precisez : niveauSelect;
+// appeler au changement et aussi au chargement (au cas où)
+niveauEl.addEventListener("change", togglePrecisez);
+document.addEventListener("DOMContentLoaded", togglePrecisez);
 
-    // Message formaté
-    let message = `Bonjour, je m'appelle ${nom}.
+// --- Soumission du formulaire vers WhatsApp ---
+document.getElementById("contactForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  // Récupération propre des valeurs
+  const nom = document.getElementById("nom").value.trim();
+  const telephone = document.getElementById("telephone").value.trim();
+  const matiere = document.getElementById("matiere").value;
+  const niveauSelect = document.getElementById("niveau").value;
+  const precisez = document.getElementById("precisez").value.trim();
+  const adresse = document.getElementById("adresse").value.trim();
+
+  // Si "autre" est choisi et que le champ "précisez" est rempli → utiliser ce texte
+  const niveau = (niveauSelect === "autre" && precisez !== "") ? precisez : niveauSelect;
+
+  // Si, par malchance, niveau est vide, indiquer 'Non précisé'
+  const niveauFinal = niveau && niveau !== "" ? niveau : "Non précisé";
+
+  // Message (format demandé : première ligne "Bonjour, je m'appelle X.")
+  const message =
+`Bonjour, je m'appelle ${nom}.
 Voici mes coordonnées et mon besoin :
-📞 Téléphone : ${tel}
+📞 Téléphone : ${telephone}
 📚 Matière : ${matiere}
-🎓 Niveau : ${niveau}
+🎓 Niveau : ${niveauFinal}
 📍 Adresse : ${adresse}
 
 Merci de bien vouloir considérer.`;
 
-    // Ton numéro WhatsApp
-    let numero = "2250151456427";
+  // Ton numéro WhatsApp (sans + ni espaces) — remplace si besoin
+  const numero = "2250151456427";
 
-    // Ouverture de WhatsApp
-    window.open("https://wa.me/" + numero + "?text=" + encodeURIComponent(message), "_blank");
+  // Ouvrir WhatsApp (nouvel onglet)
+  const waUrl = "https://wa.me/" + numero + "?text=" + encodeURIComponent(message);
+  window.open(waUrl, "_blank");
 });
-
-
