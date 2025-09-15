@@ -47,9 +47,10 @@ Voici mes coordonnées et mon besoin :
 Merci de bien vouloir considérer.`;
 
   // Ton numéro WhatsApp (sans + ni espaces) — remplace si besoin
-  const numero = "2250151456427";
+  const numero = "2250101661704";
 
   // Ouvrir WhatsApp (nouvel onglet)
   const waUrl = "https://wa.me/" + numero + "?text=" + encodeURIComponent(message);
   window.open(waUrl, "_blank");
 });
+
