@@ -1,80 +1,222 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Carte de visite - Tandem Pédago</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f0f0f0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-    }
-    .carte {
-        width: 350px;
-        height: 200px;
-        background-color: #fff;
-        border-radius: 15px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        padding: 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    .infos {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-    .infos h1 {
-        margin: 0;
-        font-size: 1.5em;
-        color: #25D366;
-    }
-    .infos p {
-        margin: 5px 0;
-        font-size: 0.9em;
-        color: #555;
-    }
-    .contact {
-        margin-top: 10px;
-    }
-    .contact a {
-        color: #25D366;
-        text-decoration: none;
-        font-weight: bold;
-    }
-    .qr img {
-        width: 80px;
-        height: 80px;
-        border-radius: 10px;
-    }
-</style>
+    <meta charset="UTF-8">
+    <title>Carte de Visite - Tandem Pédago</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #e2e8f0;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        /* --- DIMENSIONS STANDARD CARTE DE VISITE (Format 85mm x 55mm agrandi pour l'écran) --- */
+        .card {
+            width: 600px;
+            height: 350px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            overflow: hidden;
+            position: relative;
+            background: white;
+        }
+
+        /* --- RECTO (DEVANT) --- */
+        .front {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Formes géométriques décoratives */
+        .front::before {
+            content: '';
+            position: absolute;
+            top: -50px; right: -50px;
+            width: 200px; height: 200px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 50%;
+        }
+        .front::after {
+            content: '';
+            position: absolute;
+            bottom: -80px; left: -50px;
+            width: 250px; height: 250px;
+            background: rgba(251, 191, 36, 0.05); /* Gold transparent */
+            border-radius: 50%;
+        }
+
+        .brand-name {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            z-index: 2;
+        }
+        .brand-name span { color: #fbbf24; } /* Gold */
+
+        .tagline {
+            font-size: 1.1rem;
+            margin-top: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #cbd5e1;
+            font-weight: 300;
+            z-index: 2;
+        }
+
+        .decoration-line {
+            width: 80px;
+            height: 4px;
+            background: #25D366;
+            margin-top: 25px;
+            border-radius: 2px;
+        }
+
+        /* --- VERSO (ARRIÈRE) --- */
+        .back {
+            background: #ffffff;
+            display: flex;
+            padding: 0;
+        }
+
+        .back-left {
+            flex: 1.4;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .back-right {
+            flex: 0.8;
+            background: #0f172a;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            /* Forme diagonale stylée */
+            clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
+        }
+
+        .info-group { margin-bottom: 15px; display: flex; align-items: center; }
+        .info-group i {
+            width: 35px; height: 35px;
+            background: #eff6ff;
+            color: #3b82f6;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin-right: 15px;
+            font-size: 14px;
+        }
+        .info-text { font-size: 1rem; color: #334155; font-weight: 500; }
+        .info-label { font-size: 0.75rem; color: #94a3b8; display: block; margin-bottom: 2px;}
+
+        .services-list {
+            margin-top: 20px;
+            display: flex; gap: 10px; flex-wrap: wrap;
+        }
+        .pill {
+            padding: 5px 12px;
+            background: #f1f5f9;
+            color: #475569;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* QR Code Styling */
+        .qr-box {
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            margin-left: 15px;
+        }
+        .scan-me {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #fbbf24;
+            margin-left: 15px;
+            text-align: center;
+        }
+
+        /* --- BOUTON D'ACTION (Pour impression) --- */
+        .actions {
+            margin-top: 30px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 
-<div class="carte">
-    <div class="infos">
-        <h1>Tandem Pédago</h1>
-        <p>"Cours d’anglais et de maths/physique-chimie à domicile"</p>
-        <div class="contact">
-            <p>Tél: <a href="tel:+2250151456427">+225 01 51 45 64 27</a></p>
-            <p>Abidjan, Côte d'Ivoire</p>
+    <div class="container">
+        <div class="card front">
+            <div class="brand-name">Tandem <span>Pédago</span></div>
+            <div class="tagline">L'Excellence à Domicile</div>
+            <div class="decoration-line"></div>
+        </div>
+
+        <div class="card back">
+            <div class="back-left">
+                <h3 style="margin-bottom: 5px; color:#0f172a; font-size: 1.5rem;">Contactez-nous</h3>
+                <p style="margin-bottom: 25px; font-size:0.9rem; color:#64748b;">Cours particuliers à domicile - Abidjan</p>
+
+                <div class="info-group">
+                    <i class="fas fa-phone-alt" style="background:rgba(37, 211, 102, 0.1); color:#25D366;"></i>
+                    <div>
+                        <span class="info-label">WhatsApp / Tel</span>
+                        <span class="info-text">+225 01 51 45 64 27</span>
+                    </div>
+                </div>
+
+                <div class="info-group">
+                    <i class="fas fa-globe" style="background:rgba(59, 130, 246, 0.1); color:#3b82f6;"></i>
+                    <div>
+                        <span class="info-label">Site Internet</span>
+                        <span class="info-text">tandempedago.org</span>
+                    </div>
+                </div>
+
+                <div class="services-list">
+                    <span class="pill">Anglais</span>
+                    <span class="pill">Maths</span>
+                    <span class="pill">Physique</span>
+                    <span class="pill">Coaching</span>
+                </div>
+            </div>
+
+            <div class="back-right">
+                <div class="qr-box">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://tandempedago.org/" alt="QR Code Site Web" style="width: 120px; height: 120px;">
+                </div>
+                <div class="scan-me">VISITEZ LE SITE <i class="fas fa-arrow-up"></i></div>
+            </div>
         </div>
     </div>
-    <div class="qr">
-        <img src="qr.png" alt="QR Code Tandem Pédago">
+
+    <div class="actions">
+        <p style="color:#64748b; margin-bottom:10px;">Fais une capture d'écran du Recto et du Verso pour l'impression.</p>
     </div>
-</div>
 
 </body>
 </html>
-
-
-
-
-
