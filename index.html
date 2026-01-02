@@ -1,147 +1,454 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>    
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tandem Pédago - Cours à Domicile</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Tandem Pédago | Excellence à Domicile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* --- VARIABLES & RESET --- */
+        :root {
+            --primary: #0f172a; /* Bleu nuit profond */
+            --accent: #25D366; /* Vert WhatsApp */
+            --secondary: #3b82f6; /* Bleu vibrant */
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gold: #fbbf24; /* Touche dorée pour le côté 'Élite' */
+            --shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
+            --radius: 16px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
+        body { background-color: var(--light); color: var(--dark); line-height: 1.6; overflow-x: hidden; }
+
+        /* --- UI ELEMENTS --- */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4); }
+        
+        .btn-outline { background: transparent; border: 2px solid white; box-shadow: none; margin-left: 10px; }
+        .btn-outline:hover { background: white; color: var(--primary); }
+
+        .btn-secondary { background: var(--secondary); box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3); }
+        .btn-secondary:hover { background: #2563eb; }
+
+        .section-title { text-align: center; margin-bottom: 50px; position: relative; }
+        .section-title h2 { font-size: 2.5rem; color: var(--primary); margin-bottom: 10px; }
+        .section-title::after { content: ''; display: block; width: 60px; height: 4px; background: var(--accent); margin: 0 auto; border-radius: 2px; }
+
+        /* --- NAVBAR --- */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            padding: 15px 5%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+        .logo span { color: var(--secondary); }
+        .nav-links { display: flex; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--dark); margin-left: 30px; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--secondary); }
+        .mobile-menu-btn { display: none; font-size: 1.5rem; cursor: pointer; }
+
+        /* --- HERO SECTION --- */
+        header {
+            padding: 140px 5% 80px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            display: flex; align-items: center; justify-content: space-between;
+            min-height: 90vh;
+            border-bottom-right-radius: 80px;
+            overflow: hidden;
+        }
+        .hero-text { max-width: 50%; z-index: 2; }
+        .hero-text h1 { font-size: 3.5rem; line-height: 1.2; margin-bottom: 20px; }
+        .hero-text p { font-size: 1.1rem; margin-bottom: 30px; opacity: 0.9; }
+        .hero-img-container { width: 45%; position: relative; z-index: 2; }
+        .hero-img-container img {
+            width: 100%; border-radius: var(--radius);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            border: 5px solid rgba(255,255,255,0.1);
+            animation: float 6s ease-in-out infinite;
+            object-fit: cover; aspect-ratio: 4/3;
+        }
+
+        /* --- SERVICES & TARIFS --- */
+        #services, #tarifs { padding: 80px 5%; }
+        .services-grid, .tarifs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        
+        .service-card {
+            background: white; padding: 40px 30px; border-radius: var(--radius);
+            box-shadow: var(--shadow); transition: all 0.4s ease; border-top: 4px solid transparent;
+        }
+        .service-card:hover { transform: translateY(-10px); border-top: 4px solid var(--secondary); }
+        .icon-box {
+            width: 60px; height: 60px; background: #e0f2fe; color: var(--secondary);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; margin-bottom: 20px;
+        }
+
+        #tarifs { background: #f1f5f9; }
+        .tarif-card {
+            background: white; padding: 40px; border-radius: var(--radius);
+            text-align: center; box-shadow: var(--shadow); position: relative; overflow: hidden;
+        }
+        .tarif-card.premium { border: 2px solid var(--secondary); transform: scale(1.05); z-index: 10; }
+        .price { font-size: 2.5rem; font-weight: 700; color: var(--primary); margin: 20px 0; }
+        .price span { font-size: 1rem; font-weight: 400; color: #64748b; }
+        .badge {
+            background: var(--secondary); color: white; padding: 5px 15px;
+            position: absolute; top: 20px; right: -30px; transform: rotate(45deg); width: 120px; font-size: 0.8rem;
+        }
+
+        /* --- CONTACT SECTION --- */
+        #contact { padding: 80px 5%; display: flex; flex-wrap: wrap; gap: 50px; align-items: start; }
+        .contact-info { flex: 1; min-width: 300px; }
+        .contact-form-wrapper {
+            flex: 1.5; min-width: 300px; background: white; padding: 40px;
+            border-radius: var(--radius); box-shadow: var(--shadow);
+        }
+        .form-group { margin-bottom: 20px; }
+        input, select {
+            width: 100%; padding: 15px; border: 1px solid #e2e8f0;
+            border-radius: 10px; outline: none; transition: 0.3s; background: #f8fafc;
+        }
+        input:focus, select:focus { border-color: var(--secondary); background: white; }
+
+        /* --- RECRUTEMENT SECTION (DARK MODE) --- */
+        #recrutement {
+            padding: 80px 5%;
+            background: var(--primary); /* Fond sombre */
+            color: white;
+            position: relative;
+        }
+        #recrutement .section-title h2 { color: white; }
+        #recrutement .section-title::after { background: var(--gold); }
+        
+        .recrutement-container {
+            display: flex; flex-wrap: wrap; gap: 50px; align-items: center;
+            background: rgba(255, 255, 255, 0.05); /* Effet verre sur fond sombre */
+            padding: 50px; border-radius: var(--radius);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .recrutement-text { flex: 1; min-width: 300px; }
+        .recrutement-form { flex: 1; min-width: 300px; }
+        
+        /* Inputs spécifiques pour le fond sombre */
+        .dark-input {
+            background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: white;
+        }
+        .dark-input:focus { background: rgba(255, 255, 255, 0.2); border-color: var(--gold); color: white; }
+        .dark-input::placeholder { color: rgba(255, 255, 255, 0.6); }
+        
+        /* Note importante documents */
+        .doc-note {
+            background: rgba(251, 191, 36, 0.1); border-left: 3px solid var(--gold);
+            padding: 10px; font-size: 0.85rem; color: #fbbf24; margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
+        /* --- FLOAT BUTTON --- */
+        .float-wa {
+            position: fixed; bottom: 30px; right: 30px;
+            background: var(--accent); color: white;
+            width: 60px; height: 60px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 30px; box-shadow: 0 5px 20px rgba(37, 211, 102, 0.5);
+            z-index: 999; text-decoration: none; animation: pulse 2s infinite;
+        }
+
+        /* --- FOOTER --- */
+        footer { background: #0b1120; color: white; padding: 50px 5% 20px; text-align: center; }
+        .social-links a { color: white; font-size: 1.5rem; margin: 0 15px; transition: 0.3s; display: inline-block; }
+        .social-links a:hover { color: var(--secondary); transform: scale(1.2); }
+
+        /* --- ANIMATIONS --- */
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            header { flex-direction: column; text-align: center; padding-top: 100px; border-radius: 0 0 40px 40px; }
+            .hero-text, .hero-img-container { width: 100%; max-width: 100%; }
+            .hero-img-container { margin-top: 40px; }
+            .hero-text h1 { font-size: 2.5rem; }
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .tarif-card.premium { transform: scale(1); }
+            .recrutement-container { padding: 30px 20px; }
+        }
+    </style>
 </head>
 <body>
 
-<header>
-    <img src="logo_new.png" alt="Logo Tandem Pédago" style="width:120px; margin-bottom:10px;">
-    <h1>Tandem Pédago</h1>
-    <p>"Cours particuliers d’anglais et soutien scolaire à domicile – Apprenez, progressez, réussissez."</p>
-    <a href="#contact" class="btn">Réservez votre cours</a>
-</header>
-
-<section id="presentation">
-    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/48b043f8-6c01-4370-a058-fb8c715e1832.png" alt="Professeur donnant un cours particulier à domicile" style="width:100%; max-width:600px; border-radius:10px;">
-    <p>Nous proposons des cours particuliers en Anglais ainsi que des cours de soutien scolaire de la 6eme à la terminale, à domicile, aux élèves et professionnels désireux de renforcer leurs acquis. Nos professeurs se déplacent dans toute la ville d'Abidjan pour un accompagnement personnalisé et efficace.</p>
-</section>
-
-<hr style="width:80%; margin:40px auto; border:1px solid #eee;">
-
-<section id="services">
-    <h2>Nos Services</h2>
-    <div class="services">
-        <div class="service">
-            <h3>Anglais</h3>
-            <p>Débutant, intermédiaire, avancé, préparation aux examens officiels, etc.</p>
+    <nav>
+        <div class="logo">Tandem <span>Pédago</span></div>
+        <div class="nav-links">
+            <a href="#services">Services</a>
+            <a href="#tarifs">Tarifs</a>
+            <a href="#contact">Contact</a>
+            
+            <a href="#recrutement" class="btn" style="background: #fbbf24; color: #0f172a; font-size: 0.9rem; margin-left: 20px; box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);">
+                <i class="fas fa-briefcase" style="margin-right:5px;"></i> Devenir Prof
+            </a>
         </div>
-        <div class="service">
-            <h3>Soutien Scolaire</h3>
-            <p>Collège et lycée (séries A, C, D), révision pour les examens, etc.</p>
+        <div class="mobile-menu-btn"><i class="fas fa-bars"></i></div>
+    </nav>
+
+    <header>
+        <div class="hero-text reveal">
+            <h1>Libérez le potentiel <br>de votre enfant</h1>
+            <p>Cours d’anglais et de sciences à domicile à Abidjan. Rejoignez une communauté d'élèves qui réussissent ensemble.</p>
+            <div style="margin-top: 20px;">
+                <a href="#contact" class="btn">Réserver un prof</a>
+                <a href="#recrutement" class="btn btn-outline">Je suis enseignant</a>
+            </div>
         </div>
-    </div>
-</section>
-
-<section id="tarifs">
-    <h2>Tarifs</h2>
-    <div class="tarifs">
-        <div class="tarif">
-            <h3>Abonnement mensuel standard</h3>
-            <p>50 000 FCFA (Soutien scolaire 6eme à 3eme)</p>
-            <p>60 000 FCFA (Soutien scolaire 2nde à Tle série A et D)</p>
-            <p>60 000 FCFA (Anglais débutant et intermédiaire)</p>
+        <div class="hero-img-container reveal">
+            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80" alt="Groupe d'étudiants travaillant ensemble à Abidjan">
         </div>
-        <div class="tarif">
-            <h3>Abonnement mensuel premium</h3>
-            <p>90 000 FCFA (Anglais avancé; soutien scolaire 1ere et Tle C )</p>
+    </header>
+
+    <section id="services">
+        <div class="section-title reveal">
+            <h2>Nos Expertises</h2>
+            <p>Un accompagnement sur-mesure pour chaque élève.</p>
         </div>
-    </div>
-    <p>Les prix incluent le déplacement à domicile.</p>
-    <a href="#contact" class="btn">Souscrire maintenant</a>
-</section>
+        <div class="services-grid">
+            <div class="service-card reveal">
+                <div class="icon-box"><i class="fas fa-language"></i></div>
+                <h3>Anglais</h3>
+                <p>Du niveau débutant au perfectionnement. Préparation TOEFL/IELTS et anglais professionnel.</p>
+            </div>
+            <div class="service-card reveal">
+                <div class="icon-box"><i class="fas fa-square-root-alt"></i></div>
+                <h3>Maths & Physique</h3>
+                <p>Comprendre plutôt que mémoriser. Suivi intensif pour les séries C, D, E et préparation BAC.</p>
+            </div>
+            <div class="service-card reveal">
+                <div class="icon-box"><i class="fas fa-user-graduate"></i></div>
+                <h3>Coaching Scolaire</h3>
+                <p>Méthodologie de travail, gestion du stress et organisation pour réussir ses examens.</p>
+            </div>
+        </div>
+    </section>
 
-<section id="contact">
-    <h2>Contact / Réservation</h2>
+    <section id="tarifs">
+        <div class="section-title reveal">
+            <h2>Investissement Réussite</h2>
+        </div>
+        <div class="tarifs-grid">
+            <div class="tarif-card reveal">
+                <h3>Standard</h3>
+                <div class="price">90.000 <span style="font-size: 1rem;">FCFA/mois</span></div>
+                <ul style="list-style: none; text-align: left; margin-bottom: 30px; color: #64748b;">
+                    <li><i class="fas fa-check" style="color:var(--accent); margin-right:10px;"></i>Suivi régulier</li>
+                    <li><i class="fas fa-check" style="color:var(--accent); margin-right:10px;"></i>Niveau Collège / 2nde</li>
+                </ul>
+                <a href="#contact" class="btn" style="background:var(--primary); width:100%;">Choisir</a>
+            </div>
 
-  <form id="contactForm" class="contact-form">
-    <input id="nom" name="nom" type="text" placeholder="Nom" required>
-    <input id="telephone" name="telephone" type="tel" placeholder="Téléphone" required>
+            <div class="tarif-card premium reveal">
+                <div class="badge">Populaire</div>
+                <h3>Premium</h3>
+                <div class="price">120.000 <span style="font-size: 1rem;">FCFA/mois</span></div>
+                <ul style="list-style: none; text-align: left; margin-bottom: 30px; color: #64748b;">
+                    <li><i class="fas fa-check" style="color:var(--secondary); margin-right:10px;"></i>Professeurs Experts</li>
+                    <li><i class="fas fa-check" style="color:var(--secondary); margin-right:10px;"></i>Série C / Terminale / Sup</li>
+                    <li><i class="fas fa-check" style="color:var(--secondary); margin-right:10px;"></i>Anglais Avancé</li>
+                </ul>
+                <a href="#contact" class="btn" style="width:100%;">Choisir l'excellence</a>
+            </div>
+        </div>
+    </section>
 
-    <select id="Option" name="Option" required>
-      <option value="" disabled selected>Option</option>
-      <option value="Anglais">Anglais</option>
-      <option value="Soutien scolaire">Soutien scolaire</option>
-    </select>
+    <section id="contact">
+        <div class="contact-info reveal">
+            <div class="section-title" style="text-align: left;">
+                <h2>Réservez votre cours</h2>
+            </div>
+            <p style="margin-bottom: 30px;">Remplissez le formulaire. Nous vous recontactons immédiatement sur WhatsApp.</p>
+            <div style="margin-bottom: 20px;">
+                <i class="fas fa-phone-alt" style="color:var(--accent); margin-right: 15px;"></i>
+                <strong>+225 01 51 45 64 27</strong>
+            </div>
+        </div>
 
-    <select id="niveau" name="niveau" required>
-      <option value="" disabled selected>Niveau</option>
-      <optgroup label="Collège">
-        <option value="6ème">6ème</option>
-        <option value="5ème">5ème</option>
-        <option value="4ème">4ème</option>
-        <option value="3ème">3ème</option>
-      </optgroup>
-      <optgroup label="Lycée">
-        <option value="2nde A">2nde A</option>
-        <option value="2nde C">2nde C</option>
-        <option value="1ère A">1ère A</option>
-        <option value="1ère D">1ère D</option>
-        <option value="1ère C">1ère C</option>
-        <option value="Terminale A">Terminale A</option>
-        <option value="Terminale D">Terminale D</option>
-        <option value="Terminale C">Terminale C</option>
-      </optgroup>
-      <option value="autre">Autre</option>
-    </select>
+        <div class="contact-form-wrapper reveal">
+            <h3 style="margin-bottom: 20px; color:var(--primary);">Formulaire Élève/Parent</h3>
+            <form id="bookingForm">
+                <div class="form-group">
+                    <input type="text" id="nom" placeholder="Votre Nom complet" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="tel" placeholder="Numéro WhatsApp" required>
+                </div>
+                <div class="form-group">
+                    <select id="matiere" required>
+                        <option value="" disabled selected>Quelle matière ?</option>
+                        <option value="Anglais">Anglais</option>
+                        <option value="Maths/Physique">Maths / Physique-Chimie</option>
+                        <option value="Autre">Autre</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select id="niveau" required>
+                        <option value="" disabled selected>Niveau de l'élève</option>
+                        <option value="Collège">Collège</option>
+                        <option value="Lycée">Lycée</option>
+                        <option value="Adulte">Adulte</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="quartier" placeholder="Votre Quartier" required>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">
+                    <i class="fab fa-whatsapp"></i> Envoyer la demande
+                </button>
+            </form>
+        </div>
+    </section>
 
-    <!-- Champ "Précisez" (caché par défaut) -->
-    <input id="precisez" name="precisez" type="text" placeholder="Précisez (si 'Autre')" style="display:none; margin-top:8px;">
+    <section id="recrutement">
+        <div class="section-title reveal">
+            <h2>Espace Enseignants</h2>
+            <p style="color:rgba(255,255,255,0.8)">Rejoignez l'élite pédagogique d'Abidjan.</p>
+        </div>
 
-    <input id="adresse" name="adresse" type="text" placeholder="Commune, quartier, etc." required>
-    <small style="display:block; margin-top:-10px; color:#666;">(Ex: Cocody, Riviera, etc.)</small>
+        <div class="recrutement-container reveal">
+            <div class="recrutement-text">
+                <h3 style="font-size: 2rem; margin-bottom: 20px; color:white;">Postulez Maintenant</h3>
+                <p style="margin-bottom: 30px; opacity: 0.9;">
+                    Nous recherchons des enseignants passionnés, pédagogues et sérieux. 
+                    En rejoignant Tandem Pédago, vous accédez à un réseau d'élèves motivés.
+                </p>
+                <ul style="list-style: none; color: white;">
+                    <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color:var(--gold); margin-right:10px;"></i>Rémunération attractive</li>
+                    <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color:var(--gold); margin-right:10px;"></i>Flexibilité des horaires</li>
+                    <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color:var(--gold); margin-right:10px;"></i>Accompagnement pédagogique</li>
+                </ul>
+            </div>
 
-    <button type="submit" class="whatsapp-btn">Envoyer</button>
-  </form>
+            <div class="recrutement-form">
+                <form id="recrutementForm">
+                    <div class="form-group">
+                        <input type="text" id="prof-nom" class="dark-input" placeholder="Nom & Prénoms" required>
+                    </div>
+                    
+                    <div class="form-group" style="display:flex; gap:10px;">
+                        <input type="number" id="prof-age" class="dark-input" placeholder="Age" style="width: 30%;" required>
+                        <input type="text" id="prof-tel" class="dark-input" placeholder="Numéro WhatsApp" style="width: 70%;" required>
+                    </div>
 
-  <p style="font-size: 1.5em; margin: 20px 0;">
-    Contactez-nous :
-    <a href="tel:+2250151456427" style="color: #25D366; text-decoration: none;">+225 01 51 45 64 27</a>
-  </p>
+                    <div class="form-group">
+                        <select id="prof-niveau" class="dark-input" required style="background: rgba(30, 41, 59, 0.9);">
+                            <option value="" disabled selected>Votre Niveau d'Étude</option>
+                            <option value="BAC+2">BAC +2 (BTS/DEUG)</option>
+                            <option value="BAC+3">BAC +3 (Licence)</option>
+                            <option value="BAC+4">BAC +4 (Master 1)</option>
+                            <option value="BAC+5">BAC +5 (Master 2/Ingénieur)</option>
+                            <option value="Doctorat">Doctorat</option>
+                        </select>
+                    </div>
 
-  <a href="https://wa.me/2250101661704" class="whatsapp-btn" target="_blank">Discuter sur WhatsApp</a>
+                    <div class="form-group">
+                         <label style="color:white; display:block; margin-bottom:5px; font-size:0.9rem;">Documents (CNI, CV, Diplômes)</label>
+                         <div style="background:rgba(255,255,255,0.1); padding:10px; border-radius:10px; border:1px dashed rgba(255,255,255,0.3); text-align:center; color:rgba(255,255,255,0.7); font-size:0.9rem;">
+                            <i class="fas fa-file-upload"></i> Préparez vos fichiers
+                         </div>
+                    </div>
 
-  <div style="margin-top: 20px;">
-    <img src="qr.png" alt="QR Code pour accéder à cette page" style="display:block; margin:10px auto; width:150px; height:150px;">
-  </div>
-</section>
-<footer>
-    <p>Entreprise locale basée à Abidjan – Cours à domicile</p>
-    <p>
-        <a href="#" class="fab fa-facebook" style="color: #3b5998; margin: 0 10px;"></a>
-        <a href="#" class="fab fa-instagram" style="color: #E1306C; margin: 0 10px;"></a>
-        <a href="#" class="fab fa-whatsapp" style="color: #25D366; margin: 0 10px;"></a>
-    </p>
-</footer>
+                    <div class="doc-note">
+                        <i class="fas fa-info-circle"></i> <strong>Important :</strong> Après avoir cliqué sur "Soumettre", la discussion WhatsApp s'ouvrira. Vous devrez y <u>joindre manuellement</u> vos fichiers (PDF/Photos).
+                    </div>
 
-<script src="script.js"></script>
+                    <button type="submit" class="btn" style="width: 100%; background: var(--gold); color: var(--primary);">
+                        <i class="fab fa-whatsapp"></i> Soumettre ma candidature
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
 
+    <a href="https://wa.me/2250151456427" class="float-wa" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <footer>
+        <div style="margin-bottom: 20px;">
+            <h3>Tandem Pédago</h3>
+            <p>L'excellence scolaire à domicile.</p>
+        </div>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="https://wa.me/2250151456427"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <p style="font-size: 0.8rem; margin-top: 30px; opacity: 0.7;">&copy; 2025 Tandem Pédago Abidjan. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        // 1. ENVOI WHATSAPP - FORMULAIRE ELEVES (Booking)
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nom = document.getElementById('nom').value;
+            const tel = document.getElementById('tel').value;
+            const matiere = document.getElementById('matiere').value;
+            const niveau = document.getElementById('niveau').value;
+            const quartier = document.getElementById('quartier').value;
+
+            const message = `👋 Bonjour, je souhaite réserver un cours.%0A%0A👤 *Nom:* ${nom}%0A📞 *Tel:* ${tel}%0A📚 *Matière:* ${matiere}%0A🎓 *Niveau:* ${niveau}%0A📍 *Quartier:* ${quartier}`;
+            window.open(`https://wa.me/2250151456427?text=${message}`, '_blank');
+        });
+
+        // 2. ENVOI WHATSAPP - FORMULAIRE ENSEIGNANTS (Recrutement)
+        document.getElementById('recrutementForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const pNom = document.getElementById('prof-nom').value;
+            const pAge = document.getElementById('prof-age').value;
+            const pTel = document.getElementById('prof-tel').value;
+            const pNiveau = document.getElementById('prof-niveau').value;
+
+            // Message spécifique pour les profs
+            const messageProf = `💼 *CANDIDATURE ENSEIGNANT*%0A%0A👤 *Nom:* ${pNom}%0A🎂 *Age:* ${pAge} ans%0A📞 *Tel:* ${pTel}%0A🎓 *Niveau:* ${pNiveau}%0A%0A📂 *NOTE:* Je joins mes documents (CV, CNI, Diplômes) à ce message.`;
+
+            // Ouvre WhatsApp
+            window.open(`https://wa.me/2250151456427?text=${messageProf}`, '_blank');
+        });
+
+        // 3. ANIMATION AU SCROLL
+        window.addEventListener('scroll', reveal);
+        function reveal() {
+            var reveals = document.querySelectorAll('.reveal');
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+        reveal();
+    </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
