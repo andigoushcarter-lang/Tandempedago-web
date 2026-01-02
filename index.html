@@ -10,12 +10,12 @@
     <style>
         /* --- VARIABLES & RESET --- */
         :root {
-            --primary: #0f172a; /* Bleu nuit profond */
-            --accent: #25D366; /* Vert WhatsApp */
-            --secondary: #3b82f6; /* Bleu vibrant */
+            --primary: #0f172a;
+            --accent: #25D366;
+            --secondary: #3b82f6;
             --light: #f8fafc;
             --dark: #1e293b;
-            --gold: #fbbf24; /* Touche dorée pour le côté 'Élite' */
+            --gold: #fbbf24;
             --shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
             --radius: 16px;
         }
@@ -25,46 +25,35 @@
 
         /* --- UI ELEMENTS --- */
         .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background: var(--accent);
-            color: white;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
+            display: inline-block; padding: 12px 30px; background: var(--accent); color: white;
+            border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3); border: none; cursor: pointer; font-size: 1rem;
         }
         .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4); }
         
         .btn-outline { background: transparent; border: 2px solid white; box-shadow: none; margin-left: 10px; }
         .btn-outline:hover { background: white; color: var(--primary); }
 
-        .btn-secondary { background: var(--secondary); box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3); }
-        .btn-secondary:hover { background: #2563eb; }
-
         .section-title { text-align: center; margin-bottom: 50px; position: relative; }
-        .section-title h2 { font-size: 2.5rem; color: var(--primary); margin-bottom: 10px; }
+        .section-title h2 { font-size: clamp(2rem, 5vw, 2.5rem); color: var(--primary); margin-bottom: 10px; } /* Taille adaptative */
         .section-title::after { content: ''; display: block; width: 60px; height: 4px; background: var(--accent); margin: 0 auto; border-radius: 2px; }
 
         /* --- NAVBAR --- */
         nav {
             position: fixed; top: 0; width: 100%; z-index: 1000;
             padding: 15px 5%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
             display: flex; justify-content: space-between; align-items: center;
             box-shadow: 0 2px 20px rgba(0,0,0,0.05);
         }
-        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); z-index: 1001; }
         .logo span { color: var(--secondary); }
+        
         .nav-links { display: flex; align-items: center; }
         .nav-links a { text-decoration: none; color: var(--dark); margin-left: 30px; font-weight: 500; transition: color 0.3s; }
         .nav-links a:hover { color: var(--secondary); }
-        .mobile-menu-btn { display: none; font-size: 1.5rem; cursor: pointer; }
+        
+        .mobile-menu-btn { display: none; font-size: 1.8rem; cursor: pointer; color: var(--primary); z-index: 1001; }
 
         /* --- HERO SECTION --- */
         header {
@@ -75,10 +64,13 @@
             min-height: 90vh;
             border-bottom-right-radius: 80px;
             overflow: hidden;
+            position: relative;
         }
         .hero-text { max-width: 50%; z-index: 2; }
-        .hero-text h1 { font-size: 3.5rem; line-height: 1.2; margin-bottom: 20px; }
+        /* Clamp permet d'adapter la taille du texte entre PC et Mobile fluidement */
+        .hero-text h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); line-height: 1.2; margin-bottom: 20px; }
         .hero-text p { font-size: 1.1rem; margin-bottom: 30px; opacity: 0.9; }
+        
         .hero-img-container { width: 45%; position: relative; z-index: 2; }
         .hero-img-container img {
             width: 100%; border-radius: var(--radius);
@@ -88,15 +80,21 @@
             object-fit: cover; aspect-ratio: 4/3;
         }
 
-        /* --- SERVICES & TARIFS --- */
+        /* --- SECTIONS COMMUNES --- */
         #services, #tarifs { padding: 80px 5%; }
-        .services-grid, .tarifs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .services-grid, .tarifs-grid { 
+            display: grid; 
+            /* Minmax ajusté pour éviter que ça coupe sur petit écran */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 30px; 
+        }
         
-        .service-card {
+        .service-card, .tarif-card {
             background: white; padding: 40px 30px; border-radius: var(--radius);
             box-shadow: var(--shadow); transition: all 0.4s ease; border-top: 4px solid transparent;
         }
         .service-card:hover { transform: translateY(-10px); border-top: 4px solid var(--secondary); }
+        
         .icon-box {
             width: 60px; height: 60px; background: #e0f2fe; color: var(--secondary);
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
@@ -104,96 +102,87 @@
         }
 
         #tarifs { background: #f1f5f9; }
-        .tarif-card {
-            background: white; padding: 40px; border-radius: var(--radius);
-            text-align: center; box-shadow: var(--shadow); position: relative; overflow: hidden;
-        }
         .tarif-card.premium { border: 2px solid var(--secondary); transform: scale(1.05); z-index: 10; }
         .price { font-size: 2.5rem; font-weight: 700; color: var(--primary); margin: 20px 0; }
-        .price span { font-size: 1rem; font-weight: 400; color: #64748b; }
         .badge {
             background: var(--secondary); color: white; padding: 5px 15px;
             position: absolute; top: 20px; right: -30px; transform: rotate(45deg); width: 120px; font-size: 0.8rem;
         }
 
-        /* --- CONTACT SECTION --- */
+        /* --- CONTACT & FORMS --- */
         #contact { padding: 80px 5%; display: flex; flex-wrap: wrap; gap: 50px; align-items: start; }
         .contact-info { flex: 1; min-width: 300px; }
-        .contact-form-wrapper {
-            flex: 1.5; min-width: 300px; background: white; padding: 40px;
-            border-radius: var(--radius); box-shadow: var(--shadow);
-        }
+        .contact-form-wrapper { flex: 1.5; min-width: 300px; background: white; padding: 40px; border-radius: var(--radius); box-shadow: var(--shadow); }
         .form-group { margin-bottom: 20px; }
         input, select {
             width: 100%; padding: 15px; border: 1px solid #e2e8f0;
-            border-radius: 10px; outline: none; transition: 0.3s; background: #f8fafc;
+            border-radius: 10px; outline: none; transition: 0.3s; background: #f8fafc; font-size: 16px; /* Evite le zoom sur iPhone */
         }
         input:focus, select:focus { border-color: var(--secondary); background: white; }
 
-        /* --- RECRUTEMENT SECTION (DARK MODE) --- */
-        #recrutement {
-            padding: 80px 5%;
-            background: var(--primary); /* Fond sombre */
-            color: white;
-            position: relative;
-        }
+        /* --- RECRUTEMENT --- */
+        #recrutement { padding: 80px 5%; background: var(--primary); color: white; }
         #recrutement .section-title h2 { color: white; }
         #recrutement .section-title::after { background: var(--gold); }
         
         .recrutement-container {
             display: flex; flex-wrap: wrap; gap: 50px; align-items: center;
-            background: rgba(255, 255, 255, 0.05); /* Effet verre sur fond sombre */
-            padding: 50px; border-radius: var(--radius);
+            background: rgba(255, 255, 255, 0.05); padding: 50px; border-radius: var(--radius);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         .recrutement-text { flex: 1; min-width: 300px; }
         .recrutement-form { flex: 1; min-width: 300px; }
         
-        /* Inputs spécifiques pour le fond sombre */
-        .dark-input {
-            background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: white;
-        }
-        .dark-input:focus { background: rgba(255, 255, 255, 0.2); border-color: var(--gold); color: white; }
-        .dark-input::placeholder { color: rgba(255, 255, 255, 0.6); }
-        
-        /* Note importante documents */
-        .doc-note {
-            background: rgba(251, 191, 36, 0.1); border-left: 3px solid var(--gold);
-            padding: 10px; font-size: 0.85rem; color: #fbbf24; margin-bottom: 20px;
-            border-radius: 4px;
-        }
+        .dark-input { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: white; }
+        .dark-input:focus { border-color: var(--gold); background: rgba(255, 255, 255, 0.2); }
+        .doc-note { background: rgba(251, 191, 36, 0.1); border-left: 3px solid var(--gold); padding: 10px; font-size: 0.85rem; color: #fbbf24; margin-bottom: 20px; border-radius: 4px; }
 
-        /* --- FLOAT BUTTON --- */
         .float-wa {
-            position: fixed; bottom: 30px; right: 30px;
-            background: var(--accent); color: white;
-            width: 60px; height: 60px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 30px; box-shadow: 0 5px 20px rgba(37, 211, 102, 0.5);
-            z-index: 999; text-decoration: none; animation: pulse 2s infinite;
+            position: fixed; bottom: 30px; right: 30px; background: var(--accent); color: white;
+            width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 30px; box-shadow: 0 5px 20px rgba(37, 211, 102, 0.5); z-index: 999; animation: pulse 2s infinite;
         }
 
-        /* --- FOOTER --- */
         footer { background: #0b1120; color: white; padding: 50px 5% 20px; text-align: center; }
-        .social-links a { color: white; font-size: 1.5rem; margin: 0 15px; transition: 0.3s; display: inline-block; }
-        .social-links a:hover { color: var(--secondary); transform: scale(1.2); }
+        .social-links a { color: white; font-size: 1.5rem; margin: 0 15px; display: inline-block; }
 
-        /* --- ANIMATIONS --- */
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
         @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            header { flex-direction: column; text-align: center; padding-top: 100px; border-radius: 0 0 40px 40px; }
-            .hero-text, .hero-img-container { width: 100%; max-width: 100%; }
-            .hero-img-container { margin-top: 40px; }
-            .hero-text h1 { font-size: 2.5rem; }
-            .nav-links { display: none; }
+        /* --- RESPONSIVE MOBILE OPTIMISÉ (Dynamique) --- */
+        @media (max-width: 900px) {
+            /* Navbar Mobile */
             .mobile-menu-btn { display: block; }
-            .tarif-card.premium { transform: scale(1); }
-            .recrutement-container { padding: 30px 20px; }
+            .nav-links {
+                position: fixed; top: 0; right: -100%; width: 80%; height: 100vh;
+                background: white; flex-direction: column; justify-content: center; align-items: center;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1); transition: 0.4s ease; z-index: 1000;
+            }
+            .nav-links.active { right: 0; }
+            .nav-links a { margin: 20px 0; font-size: 1.2rem; }
+            
+            /* Header */
+            header { flex-direction: column-reverse; text-align: center; padding-top: 100px; border-radius: 0 0 40px 40px; padding-bottom: 60px; }
+            .hero-text, .hero-img-container { width: 100%; max-width: 100%; }
+            .hero-img-container { margin-bottom: 30px; }
+            
+            /* Boutons mobiles */
+            .btn, .btn-outline { width: 100%; margin: 10px 0; display: block; margin-left: 0; }
+            
+            /* Sections */
+            #services, #tarifs, #contact, #recrutement { padding: 60px 5%; }
+            .tarif-card.premium { transform: scale(1); border: 2px solid var(--secondary); margin-top: 20px; }
+            
+            /* Contact */
+            .contact-info { text-align: center; }
+            .contact-form-wrapper { padding: 30px 20px; }
+            
+            /* Recrutement */
+            .recrutement-container { padding: 30px 20px; text-align: center; }
+            .form-group[style*="display:flex"] { flex-direction: column; } /* Met Age et Tel l'un sur l'autre sur mobile */
+            #prof-age, #prof-tel { width: 100% !important; }
         }
     </style>
 </head>
@@ -201,16 +190,16 @@
 
     <nav>
         <div class="logo">Tandem <span>Pédago</span></div>
-        <div class="nav-links">
-            <a href="#services">Services</a>
-            <a href="#tarifs">Tarifs</a>
-            <a href="#contact">Contact</a>
+        <div class="nav-links" id="navLinks">
+            <a href="#services" onclick="closeMenu()">Services</a>
+            <a href="#tarifs" onclick="closeMenu()">Tarifs</a>
+            <a href="#contact" onclick="closeMenu()">Contact</a>
             
-            <a href="#recrutement" class="btn" style="background: #fbbf24; color: #0f172a; font-size: 0.9rem; margin-left: 20px; box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);">
+            <a href="#recrutement" class="btn" onclick="closeMenu()" style="background: #fbbf24; color: #0f172a; font-size: 0.9rem; margin-top: 20px; box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);">
                 <i class="fas fa-briefcase" style="margin-right:5px;"></i> Devenir Prof
             </a>
         </div>
-        <div class="mobile-menu-btn"><i class="fas fa-bars"></i></div>
+        <div class="mobile-menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
     </nav>
 
     <header>
@@ -219,7 +208,7 @@
             <p>Cours d’anglais et de sciences à domicile à Abidjan. Rejoignez une communauté d'élèves qui réussissent ensemble.</p>
             <div style="margin-top: 20px;">
                 <a href="#contact" class="btn">Réserver un prof</a>
-                <a href="#recrutement" class="btn btn-outline">Je suis enseignant</a>
+                <a href="#recrutement" class="btn btn-outline" style="color:white; border-color:white;">Je suis enseignant</a>
             </div>
         </div>
         <div class="hero-img-container reveal">
@@ -337,13 +326,11 @@
             <div class="recrutement-text">
                 <h3 style="font-size: 2rem; margin-bottom: 20px; color:white;">Postulez Maintenant</h3>
                 <p style="margin-bottom: 30px; opacity: 0.9;">
-                    Nous recherchons des enseignants passionnés, pédagogues et sérieux. 
-                    En rejoignant Tandem Pédago, vous accédez à un réseau d'élèves motivés.
+                    Nous recherchons des enseignants passionnés. En rejoignant Tandem Pédago, vous accédez à un réseau d'élèves motivés.
                 </p>
                 <ul style="list-style: none; color: white;">
                     <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color:var(--gold); margin-right:10px;"></i>Rémunération attractive</li>
                     <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color:var(--gold); margin-right:10px;"></i>Flexibilité des horaires</li>
-                    <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color:var(--gold); margin-right:10px;"></i>Accompagnement pédagogique</li>
                 </ul>
             </div>
 
@@ -377,7 +364,7 @@
                     </div>
 
                     <div class="doc-note">
-                        <i class="fas fa-info-circle"></i> <strong>Important :</strong> Après avoir cliqué sur "Soumettre", la discussion WhatsApp s'ouvrira. Vous devrez y <u>joindre manuellement</u> vos fichiers (PDF/Photos).
+                        <i class="fas fa-info-circle"></i> <strong>Important :</strong> Après avoir cliqué sur "Soumettre", la discussion WhatsApp s'ouvrira.
                     </div>
 
                     <button type="submit" class="btn" style="width: 100%; background: var(--gold); color: var(--primary);">
@@ -402,11 +389,22 @@
             <a href="#"><i class="fab fa-instagram"></i></a>
             <a href="https://wa.me/2250151456427"><i class="fab fa-whatsapp"></i></a>
         </div>
-        <p style="font-size: 0.8rem; margin-top: 30px; opacity: 0.7;">&copy; 2025 Tandem Pédago Abidjan. Tous droits réservés.</p>
+        <p style="font-size: 0.8rem; margin-top: 30px; opacity: 0.7;">&copy; 2025 Tandem Pédago Abidjan.</p>
     </footer>
 
     <script>
-        // 1. ENVOI WHATSAPP - FORMULAIRE ELEVES (Booking)
+        // 1. MENU MOBILE (Le hamburger)
+        const navLinks = document.getElementById('navLinks');
+        
+        function toggleMenu() {
+            navLinks.classList.toggle('active');
+        }
+        
+        function closeMenu() {
+            navLinks.classList.remove('active');
+        }
+
+        // 2. ENVOI WHATSAPP - ELEVES
         document.getElementById('bookingForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const nom = document.getElementById('nom').value;
@@ -419,23 +417,20 @@
             window.open(`https://wa.me/2250151456427?text=${message}`, '_blank');
         });
 
-        // 2. ENVOI WHATSAPP - FORMULAIRE ENSEIGNANTS (Recrutement)
+        // 3. ENVOI WHATSAPP - PROFS
         document.getElementById('recrutementForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
             const pNom = document.getElementById('prof-nom').value;
             const pAge = document.getElementById('prof-age').value;
             const pTel = document.getElementById('prof-tel').value;
             const pNiveau = document.getElementById('prof-niveau').value;
 
-            // Message spécifique pour les profs
             const messageProf = `💼 *CANDIDATURE ENSEIGNANT*%0A%0A👤 *Nom:* ${pNom}%0A🎂 *Age:* ${pAge} ans%0A📞 *Tel:* ${pTel}%0A🎓 *Niveau:* ${pNiveau}%0A%0A📂 *NOTE:* Je joins mes documents (CV, CNI, Diplômes) à ce message.`;
 
-            // Ouvre WhatsApp
             window.open(`https://wa.me/2250151456427?text=${messageProf}`, '_blank');
         });
 
-        // 3. ANIMATION AU SCROLL
+        // 4. ANIMATION SCROLL
         window.addEventListener('scroll', reveal);
         function reveal() {
             var reveals = document.querySelectorAll('.reveal');
