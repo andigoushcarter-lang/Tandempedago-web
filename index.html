@@ -1,449 +1,306 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tandem Pédago | Excellence à Domicile</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <style>
-        /* --- VARIABLES & RESET --- */
-        :root {
-            --primary: #0f172a;
-            --accent: #25D366;
-            --secondary: #3b82f6;
-            --light: #f8fafc;
-            --dark: #1e293b;
-            --gold: #fbbf24;
-            --shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
-            --radius: 16px;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tandem Pédago | Excellence à Domicile</title>
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
-        body { background-color: var(--light); color: var(--dark); line-height: 1.6; overflow-x: hidden; }
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
-        /* --- UI ELEMENTS --- */
-        .btn {
-            display: inline-block; padding: 12px 30px; background: var(--accent); color: white;
-            border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3); border: none; cursor: pointer; font-size: 1rem;
-        }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4); }
-        
-        .btn-outline { background: transparent; border: 2px solid white; box-shadow: none; margin-left: 10px; }
-        .btn-outline:hover { background: white; color: var(--primary); }
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
 
-        .section-title { text-align: center; margin-bottom: 50px; position: relative; }
-        .section-title h2 { font-size: clamp(2rem, 5vw, 2.5rem); color: var(--primary); margin-bottom: 10px; } /* Taille adaptative */
-        .section-title::after { content: ''; display: block; width: 60px; height: 4px; background: var(--accent); margin: 0 auto; border-radius: 2px; }
-
-        /* --- NAVBAR --- */
-        nav {
-            position: fixed; top: 0; width: 100%; z-index: 1000;
-            padding: 15px 5%;
-            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
-            display: flex; justify-content: space-between; align-items: center;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
-        }
-        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); z-index: 1001; }
-        .logo span { color: var(--secondary); }
-        
-        .nav-links { display: flex; align-items: center; }
-        .nav-links a { text-decoration: none; color: var(--dark); margin-left: 30px; font-weight: 500; transition: color 0.3s; }
-        .nav-links a:hover { color: var(--secondary); }
-        
-        .mobile-menu-btn { display: none; font-size: 1.8rem; cursor: pointer; color: var(--primary); z-index: 1001; }
-
-        /* --- HERO SECTION --- */
-        header {
-            padding: 140px 5% 80px;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: white;
-            display: flex; align-items: center; justify-content: space-between;
-            min-height: 90vh;
-            border-bottom-right-radius: 80px;
-            overflow: hidden;
-            position: relative;
-        }
-        .hero-text { max-width: 50%; z-index: 2; }
-        /* Clamp permet d'adapter la taille du texte entre PC et Mobile fluidement */
-        .hero-text h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); line-height: 1.2; margin-bottom: 20px; }
-        .hero-text p { font-size: 1.1rem; margin-bottom: 30px; opacity: 0.9; }
-        
-        .hero-img-container { width: 45%; position: relative; z-index: 2; }
-        .hero-img-container img {
-            width: 100%; border-radius: var(--radius);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-            border: 5px solid rgba(255,255,255,0.1);
-            animation: float 6s ease-in-out infinite;
-            object-fit: cover; aspect-ratio: 4/3;
-        }
-
-        /* --- SECTIONS COMMUNES --- */
-        #services, #tarifs { padding: 80px 5%; }
-        .services-grid, .tarifs-grid { 
-            display: grid; 
-            /* Minmax ajusté pour éviter que ça coupe sur petit écran */
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 30px; 
-        }
-        
-        .service-card, .tarif-card {
-            background: white; padding: 40px 30px; border-radius: var(--radius);
-            box-shadow: var(--shadow); transition: all 0.4s ease; border-top: 4px solid transparent;
-        }
-        .service-card:hover { transform: translateY(-10px); border-top: 4px solid var(--secondary); }
-        
-        .icon-box {
-            width: 60px; height: 60px; background: #e0f2fe; color: var(--secondary);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; margin-bottom: 20px;
-        }
-
-        #tarifs { background: #f1f5f9; }
-        .tarif-card.premium { border: 2px solid var(--secondary); transform: scale(1.05); z-index: 10; }
-        .price { font-size: 2.5rem; font-weight: 700; color: var(--primary); margin: 20px 0; }
-        .badge {
-            background: var(--secondary); color: white; padding: 5px 15px;
-            position: absolute; top: 20px; right: -30px; transform: rotate(45deg); width: 120px; font-size: 0.8rem;
-        }
-
-        /* --- CONTACT & FORMS --- */
-        #contact { padding: 80px 5%; display: flex; flex-wrap: wrap; gap: 50px; align-items: start; }
-        .contact-info { flex: 1; min-width: 300px; }
-        .contact-form-wrapper { flex: 1.5; min-width: 300px; background: white; padding: 40px; border-radius: var(--radius); box-shadow: var(--shadow); }
-        .form-group { margin-bottom: 20px; }
-        input, select {
-            width: 100%; padding: 15px; border: 1px solid #e2e8f0;
-            border-radius: 10px; outline: none; transition: 0.3s; background: #f8fafc; font-size: 16px; /* Evite le zoom sur iPhone */
-        }
-        input:focus, select:focus { border-color: var(--secondary); background: white; }
-
-        /* --- RECRUTEMENT --- */
-        #recrutement { padding: 80px 5%; background: var(--primary); color: white; }
-        #recrutement .section-title h2 { color: white; }
-        #recrutement .section-title::after { background: var(--gold); }
-        
-        .recrutement-container {
-            display: flex; flex-wrap: wrap; gap: 50px; align-items: center;
-            background: rgba(255, 255, 255, 0.05); padding: 50px; border-radius: var(--radius);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .recrutement-text { flex: 1; min-width: 300px; }
-        .recrutement-form { flex: 1; min-width: 300px; }
-        
-        .dark-input { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: white; }
-        .dark-input:focus { border-color: var(--gold); background: rgba(255, 255, 255, 0.2); }
-        .doc-note { background: rgba(251, 191, 36, 0.1); border-left: 3px solid var(--gold); padding: 10px; font-size: 0.85rem; color: #fbbf24; margin-bottom: 20px; border-radius: 4px; }
-
-        .float-wa {
-            position: fixed; bottom: 30px; right: 30px; background: var(--accent); color: white;
-            width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 30px; box-shadow: 0 5px 20px rgba(37, 211, 102, 0.5); z-index: 999; animation: pulse 2s infinite;
-        }
-
-        footer { background: #0b1120; color: white; padding: 50px 5% 20px; text-align: center; }
-        .social-links a { color: white; font-size: 1.5rem; margin: 0 15px; display: inline-block; }
-
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
-        /* --- RESPONSIVE MOBILE OPTIMISÉ (Dynamique) --- */
-        @media (max-width: 900px) {
-            /* Navbar Mobile */
-            .mobile-menu-btn { display: block; }
-            .nav-links {
-                position: fixed; top: 0; right: -100%; width: 80%; height: 100vh;
-                background: white; flex-direction: column; justify-content: center; align-items: center;
-                box-shadow: -5px 0 15px rgba(0,0,0,0.1); transition: 0.4s ease; z-index: 1000;
-            }
-            .nav-links.active { right: 0; }
-            .nav-links a { margin: 20px 0; font-size: 1.2rem; }
-            
-            /* Header */
-            header { flex-direction: column-reverse; text-align: center; padding-top: 100px; border-radius: 0 0 40px 40px; padding-bottom: 60px; }
-            .hero-text, .hero-img-container { width: 100%; max-width: 100%; }
-            .hero-img-container { margin-bottom: 30px; }
-            
-            /* Boutons mobiles */
-            .btn, .btn-outline { width: 100%; margin: 10px 0; display: block; margin-left: 0; }
-            
-            /* Sections */
-            #services, #tarifs, #contact, #recrutement { padding: 60px 5%; }
-            .tarif-card.premium { transform: scale(1); border: 2px solid var(--secondary); margin-top: 20px; }
-            
-            /* Contact */
-            .contact-info { text-align: center; }
-            .contact-form-wrapper { padding: 30px 20px; }
-            
-            /* Recrutement */
-            .recrutement-container { padding: 30px 20px; text-align: center; }
-            .form-group[style*="display:flex"] { flex-direction: column; } /* Met Age et Tel l'un sur l'autre sur mobile */
-            #prof-age, #prof-tel { width: 100% !important; }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-    <nav>
-        <div class="logo">Tandem <span>Pédago</span></div>
-        <div class="nav-links" id="navLinks">
-            <a href="#services" onclick="closeMenu()">Services</a>
-            <a href="#tarifs" onclick="closeMenu()">Tarifs</a>
-            <a href="#contact" onclick="closeMenu()">Contact</a>
-            
-            <a href="#recrutement" class="btn" onclick="closeMenu()" style="background: #fbbf24; color: #0f172a; font-size: 0.9rem; margin-top: 20px; box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);">
-                <i class="fas fa-briefcase" style="margin-right:5px;"></i> Devenir Prof
-            </a>
-        </div>
-        <div class="mobile-menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
-    </nav>
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo-svg">
+    <div class="logo-mark">
+      <svg width="44" height="28" viewBox="0 0 44 28" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+        <circle cx="14" cy="14" r="14" fill="#0e6b4a"/>
+        <circle cx="30" cy="14" r="14" fill="#c8922a" opacity="0.92"/>
+        <line x1="14" y1="14" x2="30" y2="14" stroke="#ffffff" stroke-width="2.8" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="logo-text-wrap">
+      <span class="logo-tandem">Tandem</span>
+      <span class="logo-pedago">Pédago</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#apropos">À propos</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#tarifs">Tarifs</a></li>
+    <li><a href="#recrutement">Devenir Prof</a></li>
+    <li><a href="#contact" class="nav-cta">Réserver</a></li>
+  </ul>
+</nav>
 
-    <header>
-        <div class="hero-text reveal">
-            <h1>Libérez le potentiel <br>de votre enfant</h1>
-            <p>Cours d’anglais et de sciences à domicile à Abidjan. Rejoignez une communauté d'élèves qui réussissent ensemble.</p>
-            <div style="margin-top: 20px;">
-                <a href="#contact" class="btn">Réserver un prof</a>
-                <a href="#recrutement" class="btn btn-outline" style="color:white; border-color:white;">Je suis enseignant</a>
+<!-- HERO -->
+<div class="hero-wrap">
+  <div class="hero-bg-circle c1"></div>
+  <div class="hero-bg-circle c2"></div>
+  <div class="hero">
+    <div>
+      <div class="hero-tag"><div class="hero-tag-dot"></div>Abidjan, Côte d'Ivoire</div>
+      <h1>Libérez le <em>potentiel</em><br>de votre enfant</h1>
+      <p>Cours d'anglais, de sciences et coaching scolaire à domicile. Un accompagnement sur-mesure, rigoureux et humain pour chaque élève.</p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn-primary">Réserver un cours</a>
+        <a href="#recrutement" class="btn-secondary">Je suis enseignant</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-logo-showcase">
+        <svg width="136" height="38" viewBox="0 0 136 38" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+          <circle cx="14" cy="19" r="14" fill="#0e6b4a"/>
+          <circle cx="30" cy="19" r="14" fill="#c8922a" opacity="0.92"/>
+          <line x1="14" y1="19" x2="30" y2="19" stroke="#ffffff" stroke-width="2.8" stroke-linecap="round"/>
+          <text x="52" y="15" font-family="'Cormorant Garamond',Georgia,serif" font-size="14" font-weight="700" fill="#0d1a12">Tandem</text>
+          <text x="52" y="32" font-family="'Cormorant Garamond',Georgia,serif" font-size="12" font-weight="400" font-style="italic" fill="#0e6b4a">Pédago</text>
+        </svg>
+      </div>
+      <div class="hero-image">
+        <img src="hero.png" alt="Étudiants travaillant ensemble" />
+        <div class="hero-image-overlay"></div>
+      </div>
+      <div class="hero-badge">
+        <div class="hero-badge-dot"></div>
+        <span>Réponse WhatsApp sous 2h</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item"><div class="stat-num">3</div><div class="stat-label">Matières enseignées</div></div>
+  <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">Cours à domicile</div></div>
+  <div class="stat-item"><div class="stat-num">2h</div><div class="stat-label">Réponse garantie</div></div>
+  <div class="stat-item"><div class="stat-num">∞</div><div class="stat-label">Passion & engagement</div></div>
+</div>
+
+<!-- À PROPOS -->
+<section id="apropos">
+  <div class="container">
+    <div class="section-tag">Notre histoire</div>
+    <h2 class="section-title">Née d'une conviction,<br>guidée par une mission</h2>
+    <p class="section-sub">Tandem Pédago n'est pas le fruit du hasard. C'est l'aboutissement d'une observation lucide et d'une volonté farouche de changer les choses.</p>
+    <div class="apropos-grid">
+      <div class="apropos-text">
+        <p>Dans l'école ivoirienne, deux grandes peurs hantent les élèves : les <strong>langues</strong> — l'anglais, l'espagnol, l'allemand — et les <strong>sciences</strong> — les mathématiques et la physique. Tandem Pédago, c'est l'alliance de ces deux mondes.</p>
+        <p>Un tandem, parce qu'on avance ensemble, enseignant et élève, en rythme et en confiance, jusqu'à la ligne d'arrivée.</p>
+        <div class="quote-block">
+          <div class="quote-mark">"</div>
+          <p>"En 2021, étant en Terminale, j'ai moi-même vécu une baisse du niveau intellectuel et un affaiblissement de la mémoire si considérable qu'il s'en fallait de peu pour que je me pense en déficit. Néanmoins j'ai pu comprendre plus tard après quelques recherches que ce n'était pas une fatalité, mais plutôt un manque de connaissance du fonctionnement effectif de mon cerveau et d'un accompagnement adapté."</p>
+          <p class="quote-author">— Djedjemel Andy Barnier, Co-fondateur</p>
+        </div>
+        <p>L'école ivoirienne traverse une crise silencieuse : une baisse du niveau scolaire, un appauvrissement de la langue qui fragilise la réflexion critique et logique. Nous ne sommes pas là pour le déplorer — nous sommes là pour agir.</p>
+        <div class="vision-cards">
+          <div class="vision-card"><div class="vision-icon">🎯</div><div><h4>Notre mission</h4><p>Cibler les élèves en difficulté d'apprentissage et leur offrir un accompagnement sur-mesure, rigoureux et humain.</p></div></div>
+          <div class="vision-card"><div class="vision-icon">🌍</div><div><h4>Notre vision</h4><p>Partir d'Abidjan pour toucher tout le territoire ivoirien et briser le mythe selon lequel certains élèves ne sont "pas faits pour les études".</p></div></div>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-family:var(--font-display);font-size:1.3rem;color:var(--dark);margin-bottom:1.35rem;font-weight:700;">Les fondateurs</h3>
+        <div class="founders">
+          <div class="founder-card">
+            <div class="founder-avatar green">DAB</div>
+            <div>
+              <div class="founder-name">Djedjemel Andy Barnier</div>
+              <div class="founder-role">Co-fondateur</div>
+              <div class="founder-bio">Diplômé d'une licence en Droit public, autodidacte et passionné des langues étrangères, des sciences de l'apprentissage et de l'intelligence. Assistant commercial et formateur en anglais à Lingua Institute Côte d'Ivoire.</div>
             </div>
-        </div>
-        <div class="hero-img-container reveal">
-            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80" alt="Groupe d'étudiants travaillant ensemble à Abidjan">
-        </div>
-    </header>
-
-    <section id="services">
-        <div class="section-title reveal">
-            <h2>Nos Expertises</h2>
-            <p>Un accompagnement sur-mesure pour chaque élève.</p>
-        </div>
-        <div class="services-grid">
-            <div class="service-card reveal">
-                <div class="icon-box"><i class="fas fa-language"></i></div>
-                <h3>Anglais</h3>
-                <p>Du niveau débutant au perfectionnement. Préparation TOEFL/IELTS et anglais professionnel.</p>
+          </div>
+          <div class="founder-card">
+            <div class="founder-avatar blue">AEE</div>
+            <div>
+              <div class="founder-name">Anoh Ebalé Emmanuel</div>
+              <div class="founder-role">Co-fondateur</div>
+              <div class="founder-bio">Diplômé d'un BTS en Réseaux Informatiques et Télécommunications, étudiant et autodidacte dans les sciences de l'informatique et de la sécurité numérique.</div>
             </div>
-            <div class="service-card reveal">
-                <div class="icon-box"><i class="fas fa-square-root-alt"></i></div>
-                <h3>Maths & Physique</h3>
-                <p>Comprendre plutôt que mémoriser. Suivi intensif pour les séries C, D, E et préparation BAC.</p>
-            </div>
-            <div class="service-card reveal">
-                <div class="icon-box"><i class="fas fa-user-graduate"></i></div>
-                <h3>Coaching Scolaire</h3>
-                <p>Méthodologie de travail, gestion du stress et organisation pour réussir ses examens.</p>
-            </div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <section id="tarifs">
-        <div class="section-title reveal">
-            <h2>Investissement Réussite</h2>
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="section-tag">Ce que nous faisons</div>
+    <h2 class="section-title">Nos expertises</h2>
+    <p class="section-sub">Un accompagnement sur-mesure adapté au niveau et aux besoins de chaque élève.</p>
+    <div class="services-grid">
+      <div class="service-card"><div class="service-icon">🌐</div><h3>Anglais</h3><p>Du niveau débutant au perfectionnement. Préparation TOEFL/IELTS, anglais professionnel et conversationnel. Méthode active et immersive.</p></div>
+      <div class="service-card"><div class="service-icon">📐</div><h3>Maths & Physique</h3><p>Comprendre plutôt que mémoriser. Suivi intensif pour les séries C, D, E et préparation au BAC. Exercices pratiques et méthodologie rigoureuse.</p></div>
+      <div class="service-card"><div class="service-icon">🧠</div><h3>Coaching Scolaire</h3><p>Méthodologie de travail, gestion du stress, organisation et techniques de mémorisation. Pour les élèves qui veulent reprendre confiance et performer.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TARIFS -->
+<section id="tarifs">
+  <div class="container">
+    <div class="section-tag">Investissement</div>
+    <h2 class="section-title">Des tarifs clairs et accessibles</h2>
+    <p class="section-sub">Choisissez la formule adaptée à votre niveau et à vos ambitions. Chaque plan inclut le déplacement à domicile.</p>
+    <div class="tarifs-grid">
+      <div class="tarif-card">
+        <div class="tarif-name">Découverte</div>
+        <div class="tarif-price">Gratuit</div>
+        <div class="tarif-period">Séance d'évaluation unique</div>
+        <ul class="tarif-features"><li>Évaluation du niveau</li><li>Diagnostic personnalisé</li><li>Plan d'accompagnement</li><li>Sans engagement</li></ul>
+        <a href="#contact" class="tarif-btn tarif-btn-outline">Réserver maintenant</a>
+      </div>
+      <div class="tarif-card featured">
+        <div class="badge-popular">⭐ Le plus choisi</div>
+        <div class="tarif-name">Standard</div>
+        <div class="tarif-price">90 000 FCFA</div>
+        <div class="tarif-period">par mois</div>
+        <ul class="tarif-features"><li>4 séances / mois (2h chacune)</li><li>Niveau Collège / 2nde</li><li>Suivi régulier et personnalisé</li><li>Déplacement à domicile inclus</li></ul>
+        <a href="#contact" class="tarif-btn tarif-btn-white">Choisir ce plan</a>
+      </div>
+      <div class="tarif-card">
+        <div class="tarif-name">Premium</div>
+        <div class="tarif-price">120 000 FCFA</div>
+        <div class="tarif-period">par mois</div>
+        <ul class="tarif-features"><li>6 séances / mois (2h chacune)</li><li>Série C / Terminale / Supérieur</li><li>Professeurs experts sélectionnés</li><li>Anglais avancé & prépa TOEFL</li><li>Déplacement à domicile inclus</li></ul>
+        <a href="#contact" class="tarif-btn tarif-btn-outline">Choisir l'excellence</a>
+      </div>
+    </div>
+    <p class="tarif-note">* Le nombre de séances peut être ajusté selon vos besoins. Contactez-nous pour un devis personnalisé.</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-tag">Nous contacter</div>
+    <h2 class="section-title">Réservez votre cours</h2>
+    <p class="section-sub">Remplissez le formulaire et nous vous recontactons rapidement sur WhatsApp.</p>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Parlons de votre enfant</h3>
+        <p>Chaque élève est unique. Dites-nous où il en est, et nous construirons ensemble un accompagnement adapté à ses besoins réels.</p>
+        <a href="https://wa.me/2250151456427" class="contact-whatsapp" target="_blank">💬 &nbsp;+225 01 51 45 64 27</a>
+        <div class="engagement-list">
+          <div class="engagement-item"><span>⚡</span><span>Réponse garantie sous 2h sur WhatsApp</span></div>
+          <div class="engagement-item"><span>🎓</span><span>Première séance d'évaluation offerte</span></div>
+          <div class="engagement-item"><span>🏠</span><span>Cours à domicile dans toutes les communes d'Abidjan</span></div>
+          <div class="engagement-item"><span>📋</span><span>Sans engagement — annulation libre</span></div>
         </div>
-        <div class="tarifs-grid">
-            <div class="tarif-card reveal">
-                <h3>Standard</h3>
-                <div class="price">90.000 <span style="font-size: 1rem;">FCFA/mois</span></div>
-                <ul style="list-style: none; text-align: left; margin-bottom: 30px; color: #64748b;">
-                    <li><i class="fas fa-check" style="color:var(--accent); margin-right:10px;"></i>Suivi régulier</li>
-                    <li><i class="fas fa-check" style="color:var(--accent); margin-right:10px;"></i>Niveau Collège / 2nde</li>
-                </ul>
-                <a href="#contact" class="btn" style="background:var(--primary); width:100%;">Choisir</a>
-            </div>
+      </div>
+      <div class="form-card">
+        <h3>Formulaire élève / parent</h3>
+        <div id="form-eleve-success" class="form-success"><div style="font-size:2.5rem;margin-bottom:0.75rem">✅</div><h4>Demande envoyée !</h4><p>Nous vous recontacterons sous 2h sur WhatsApp. Merci de votre confiance.</p></div>
+        <form id="form-eleve" onsubmit="submitEleveForm(event)">
+          <div class="form-row">
+            <div class="form-group"><label>Nom & Prénom *</label><input type="text" name="nom" placeholder="Ex: Koné Awa" required /></div>
+            <div class="form-group"><label>Numéro WhatsApp *</label><input type="tel" name="whatsapp" placeholder="+225 07 00 00 00 00" required /></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Commune / Quartier *</label><input type="text" name="commune" placeholder="Ex: Cocody, Yopougon..." required /></div>
+            <div class="form-group"><label>Niveau de l'élève *</label><select name="niveau" required><option value="">Choisir...</option><option>Collège (6e à 3e)</option><option>Lycée 2nde</option><option>Terminale (Série C/D/E)</option><option>Supérieur / Adulte</option></select></div>
+          </div>
+          <div class="form-group"><label>Matière souhaitée *</label><select name="matiere" required><option value="">Choisir...</option><option>Anglais</option><option>Maths / Physique-Chimie</option><option>Coaching Scolaire</option><option>Plusieurs matières</option></select></div>
+          <div class="form-group"><label>Disponibilités souhaitées</label><input type="text" name="dispo" placeholder="Ex: Lundi et mercredi après-midi..." /></div>
+          <div class="form-group"><label>Message (optionnel)</label><textarea name="message" placeholder="Décrivez brièvement les difficultés de l'élève..."></textarea></div>
+          <button type="submit" class="btn-submit">Envoyer ma demande →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
 
-            <div class="tarif-card premium reveal">
-                <div class="badge">Populaire</div>
-                <h3>Premium</h3>
-                <div class="price">120.000 <span style="font-size: 1rem;">FCFA/mois</span></div>
-                <ul style="list-style: none; text-align: left; margin-bottom: 30px; color: #64748b;">
-                    <li><i class="fas fa-check" style="color:var(--secondary); margin-right:10px;"></i>Professeurs Experts</li>
-                    <li><i class="fas fa-check" style="color:var(--secondary); margin-right:10px;"></i>Série C / Terminale / Sup</li>
-                    <li><i class="fas fa-check" style="color:var(--secondary); margin-right:10px;"></i>Anglais Avancé</li>
-                </ul>
-                <a href="#contact" class="btn" style="width:100%;">Choisir l'excellence</a>
-            </div>
+<!-- RECRUTEMENT -->
+<section id="recrutement">
+  <div class="container">
+    <div class="section-tag">Espace enseignants</div>
+    <h2 class="section-title">Rejoignez l'élite pédagogique</h2>
+    <p class="section-sub">Nous recrutons des enseignants passionnés et engagés pour accompagner nos élèves à Abidjan.</p>
+    <div class="recrutement-grid">
+      <div class="recrutement-info">
+        <h3>Pourquoi rejoindre Tandem Pédago ?</h3>
+        <p>En rejoignant notre réseau, vous accédez à des élèves motivés, un planning flexible et une rémunération attractive. Nous valorisons la pédagogie de qualité et l'engagement humain.</p>
+        <div class="avantages">
+          <div class="avantage-item"><span>💰</span><span>Rémunération attractive et ponctuelle</span></div>
+          <div class="avantage-item"><span>🕐</span><span>Horaires flexibles selon vos disponibilités</span></div>
+          <div class="avantage-item"><span>📍</span><span>Interventions dans votre zone géographique</span></div>
+          <div class="avantage-item"><span>📈</span><span>Réseau en croissance — opportunités régulières</span></div>
         </div>
-    </section>
+      </div>
+      <div class="form-card">
+        <h3>Postulez maintenant</h3>
+        <div id="form-prof-success" class="form-success"><div style="font-size:2.5rem;margin-bottom:0.75rem">✅</div><h4>Candidature envoyée !</h4><p>Nous étudierons votre dossier et vous contacterons dans les 48h.</p></div>
+        <form id="form-prof" onsubmit="submitProfForm(event)">
+          <div class="form-row">
+            <div class="form-group"><label>Nom & Prénom *</label><input type="text" name="nom" placeholder="Votre nom complet" required /></div>
+            <div class="form-group"><label>Numéro WhatsApp *</label><input type="tel" name="whatsapp" placeholder="+225 07 00 00 00 00" required /></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Commune de résidence *</label><input type="text" name="commune" placeholder="Ex: Marcory, Plateau..." required /></div>
+            <div class="form-group"><label>Niveau d'étude *</label><select name="niveau" required><option value="">Choisir...</option><option>BAC +2 (BTS / DEUG)</option><option>BAC +3 (Licence)</option><option>BAC +4 (Master 1)</option><option>BAC +5 (Master 2 / Ingénieur)</option><option>Doctorat</option></select></div>
+          </div>
+          <div class="form-group"><label>Matière(s) enseignée(s) *</label><input type="text" name="matieres" placeholder="Ex: Mathématiques, Physique-Chimie, Anglais..." required /></div>
+          <div class="form-group">
+            <label>Documents (CNI, CV, Diplômes) *</label>
+            <div class="file-upload-area"><input type="file" id="fileInput" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" multiple onchange="handleFiles(this.files)" /><div class="file-upload-icon">📎</div><div class="file-upload-text"><strong>Cliquez pour ajouter vos fichiers</strong><br/>PDF, JPG, PNG, DOC — max 5 Mo par fichier</div></div>
+            <div class="file-list" id="fileList"></div>
+            <p class="upload-note">⚠️ Joignez impérativement votre CNI, votre CV et votre diplôme le plus élevé.</p>
+          </div>
+          <div class="form-group"><label>Message de motivation (optionnel)</label><textarea name="motivation" placeholder="Parlez-nous de votre expérience pédagogique..."></textarea></div>
+          <button type="submit" class="btn-submit">Soumettre ma candidature →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <section id="contact">
-        <div class="contact-info reveal">
-            <div class="section-title" style="text-align: left;">
-                <h2>Réservez votre cours</h2>
-            </div>
-            <p style="margin-bottom: 30px;">Remplissez le formulaire. Nous vous recontactons immédiatement sur WhatsApp.</p>
-            <div style="margin-bottom: 20px;">
-                <i class="fas fa-phone-alt" style="color:var(--accent); margin-right: 15px;"></i>
-                <strong>+225 01 51 45 64 27</strong>
-            </div>
-        </div>
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#" class="logo-svg white">
+          <div class="logo-mark">
+            <svg width="44" height="28" viewBox="0 0 44 28" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+              <circle cx="14" cy="14" r="14" fill="#1a8c60"/>
+              <circle cx="30" cy="14" r="14" fill="#e8a832" opacity="0.92"/>
+              <line x1="14" y1="14" x2="30" y2="14" stroke="#0d1a12" stroke-width="2.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="logo-text-wrap">
+            <span class="logo-tandem">Tandem</span>
+            <span class="logo-pedago">Pédago</span>
+          </div>
+        </a>
+        <p>L'excellence scolaire à domicile.<br>Abidjan, Côte d'Ivoire.</p>
+      </div>
+      <div class="footer-links-col">
+        <h5>Navigation</h5>
+        <a href="#apropos">À propos</a>
+        <a href="#services">Services</a>
+        <a href="#tarifs">Tarifs</a>
+        <a href="#recrutement">Devenir Prof</a>
+      </div>
+      <div class="footer-links-col">
+        <h5>Contact</h5>
+        <a href="https://wa.me/2250151456427">+225 01 51 45 64 27</a>
+        <a href="mailto:tandempedagoabidjan@gmail.com">tandempedagoabidjan@gmail.com</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Tandem Pédago Abidjan. Tous droits réservés.</span>
+      <span>Fait avec passion pour l'éducation ivoirienne 🇨🇮</span>
+    </div>
+  </div>
+</footer>
 
-        <div class="contact-form-wrapper reveal">
-            <h3 style="margin-bottom: 20px; color:var(--primary);">Formulaire Élève/Parent</h3>
-            <form id="bookingForm">
-                <div class="form-group">
-                    <input type="text" id="nom" placeholder="Votre Nom complet" required>
-                </div>
-                <div class="form-group">
-                    <input type="tel" id="tel" placeholder="Numéro WhatsApp" required>
-                </div>
-                <div class="form-group">
-                    <select id="matiere" required>
-                        <option value="" disabled selected>Quelle matière ?</option>
-                        <option value="Anglais">Anglais</option>
-                        <option value="Maths/Physique">Maths / Physique-Chimie</option>
-                        <option value="Autre">Autre</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <select id="niveau" required>
-                        <option value="" disabled selected>Niveau de l'élève</option>
-                        <option value="Collège">Collège</option>
-                        <option value="Lycée">Lycée</option>
-                        <option value="Adulte">Adulte</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <input type="text" id="quartier" placeholder="Votre Quartier" required>
-                </div>
-                <button type="submit" class="btn" style="width: 100%;">
-                    <i class="fab fa-whatsapp"></i> Envoyer la demande
-                </button>
-            </form>
-        </div>
-    </section>
+<div class="toast" id="toast"></div>
 
-    <section id="recrutement">
-        <div class="section-title reveal">
-            <h2>Espace Enseignants</h2>
-            <p style="color:rgba(255,255,255,0.8)">Rejoignez l'élite pédagogique d'Abidjan.</p>
-        </div>
-
-        <div class="recrutement-container reveal">
-            <div class="recrutement-text">
-                <h3 style="font-size: 2rem; margin-bottom: 20px; color:white;">Postulez Maintenant</h3>
-                <p style="margin-bottom: 30px; opacity: 0.9;">
-                    Nous recherchons des enseignants passionnés. En rejoignant Tandem Pédago, vous accédez à un réseau d'élèves motivés.
-                </p>
-                <ul style="list-style: none; color: white;">
-                    <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color:var(--gold); margin-right:10px;"></i>Rémunération attractive</li>
-                    <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color:var(--gold); margin-right:10px;"></i>Flexibilité des horaires</li>
-                </ul>
-            </div>
-
-            <div class="recrutement-form">
-                <form id="recrutementForm">
-                    <div class="form-group">
-                        <input type="text" id="prof-nom" class="dark-input" placeholder="Nom & Prénoms" required>
-                    </div>
-                    
-                    <div class="form-group" style="display:flex; gap:10px;">
-                        <input type="number" id="prof-age" class="dark-input" placeholder="Age" style="width: 30%;" required>
-                        <input type="text" id="prof-tel" class="dark-input" placeholder="Numéro WhatsApp" style="width: 70%;" required>
-                    </div>
-
-                    <div class="form-group">
-                        <select id="prof-niveau" class="dark-input" required style="background: rgba(30, 41, 59, 0.9);">
-                            <option value="" disabled selected>Votre Niveau d'Étude</option>
-                            <option value="BAC+2">BAC +2 (BTS/DEUG)</option>
-                            <option value="BAC+3">BAC +3 (Licence)</option>
-                            <option value="BAC+4">BAC +4 (Master 1)</option>
-                            <option value="BAC+5">BAC +5 (Master 2/Ingénieur)</option>
-                            <option value="Doctorat">Doctorat</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                         <label style="color:white; display:block; margin-bottom:5px; font-size:0.9rem;">Documents (CNI, CV, Diplômes)</label>
-                         <div style="background:rgba(255,255,255,0.1); padding:10px; border-radius:10px; border:1px dashed rgba(255,255,255,0.3); text-align:center; color:rgba(255,255,255,0.7); font-size:0.9rem;">
-                            <i class="fas fa-file-upload"></i> Préparez vos fichiers
-                         </div>
-                    </div>
-
-                    <div class="doc-note">
-                        <i class="fas fa-info-circle"></i> <strong>Important :</strong> Après avoir cliqué sur "Soumettre", la discussion WhatsApp s'ouvrira.
-                    </div>
-
-                    <button type="submit" class="btn" style="width: 100%; background: var(--gold); color: var(--primary);">
-                        <i class="fab fa-whatsapp"></i> Soumettre ma candidature
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <a href="https://wa.me/2250151456427" class="float-wa" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
-    <footer>
-        <div style="margin-bottom: 20px;">
-            <h3>Tandem Pédago</h3>
-            <p>L'excellence scolaire à domicile.</p>
-        </div>
-        <div class="social-links">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="https://wa.me/2250151456427"><i class="fab fa-whatsapp"></i></a>
-        </div>
-        <p style="font-size: 0.8rem; margin-top: 30px; opacity: 0.7;">&copy; 2025 Tandem Pédago Abidjan.</p>
-    </footer>
-
-    <script>
-        // 1. MENU MOBILE (Le hamburger)
-        const navLinks = document.getElementById('navLinks');
-        
-        function toggleMenu() {
-            navLinks.classList.toggle('active');
-        }
-        
-        function closeMenu() {
-            navLinks.classList.remove('active');
-        }
-
-        // 2. ENVOI WHATSAPP - ELEVES
-        document.getElementById('bookingForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const nom = document.getElementById('nom').value;
-            const tel = document.getElementById('tel').value;
-            const matiere = document.getElementById('matiere').value;
-            const niveau = document.getElementById('niveau').value;
-            const quartier = document.getElementById('quartier').value;
-
-            const message = `👋 Bonjour, je souhaite réserver un cours.%0A%0A👤 *Nom:* ${nom}%0A📞 *Tel:* ${tel}%0A📚 *Matière:* ${matiere}%0A🎓 *Niveau:* ${niveau}%0A📍 *Quartier:* ${quartier}`;
-            window.open(`https://wa.me/2250151456427?text=${message}`, '_blank');
-        });
-
-        // 3. ENVOI WHATSAPP - PROFS
-        document.getElementById('recrutementForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const pNom = document.getElementById('prof-nom').value;
-            const pAge = document.getElementById('prof-age').value;
-            const pTel = document.getElementById('prof-tel').value;
-            const pNiveau = document.getElementById('prof-niveau').value;
-
-            const messageProf = `💼 *CANDIDATURE ENSEIGNANT*%0A%0A👤 *Nom:* ${pNom}%0A🎂 *Age:* ${pAge} ans%0A📞 *Tel:* ${pTel}%0A🎓 *Niveau:* ${pNiveau}%0A%0A📂 *NOTE:* Je joins mes documents (CV, CNI, Diplômes) à ce message.`;
-
-            window.open(`https://wa.me/2250151456427?text=${messageProf}`, '_blank');
-        });
-
-        // 4. ANIMATION SCROLL
-        window.addEventListener('scroll', reveal);
-        function reveal() {
-            var reveals = document.querySelectorAll('.reveal');
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 150;
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add('active');
-                }
-            }
-        }
-        reveal();
-    </script>
+<script src="script.js"></script>
 </body>
 </html>
